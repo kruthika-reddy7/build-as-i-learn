@@ -1,0 +1,8 @@
+# Ignore node modules in all subfolders
+frontend/node_modules/
+backend/node_modules/
+
+
+
+# Environment files
+.env
