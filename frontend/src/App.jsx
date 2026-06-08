@@ -10,18 +10,23 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Navbar from './components/navbar'
 import './App.css'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   
-
+   const [isLoggedIn,setIsLoggedIn]=useState(false);
   return (
     <>
     <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={
+             <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Dashboard />
+             </ProtectedRoute>
+          } />
       </Routes>
     </>
   )

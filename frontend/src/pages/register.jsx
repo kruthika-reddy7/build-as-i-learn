@@ -21,7 +21,7 @@ function Register(){
                 throw new Error("Password not given");
             }
             const response = await fetch(
-                "http://localhost:3000/register",{
+                "http://localhost:3000/auth/register",{
                     method:"POST",
                     headers:{
                         "content-type":"application/json"

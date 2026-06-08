@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login(){
+function Login({setIsLoggedIn}){
     const navigate = useNavigate();
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
@@ -20,7 +20,7 @@ function Login(){
                 throw new Error("password not given");
             }
             
-            const response=await fetch("http://localhost:3000/login",{
+            const response=await fetch("http://localhost:3000/auth/login",{
                 method:"POST",
                 headers:{
                     "content-type":"application/json"
@@ -35,6 +35,7 @@ function Login(){
             console.log(data);
             console.log("logged in");
             if(data.success) {
+                setIsLoggedIn(true);
                 navigate('/dashboard')
             }
             else throw new Error(data.message)

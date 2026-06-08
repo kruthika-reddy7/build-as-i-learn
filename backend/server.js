@@ -1,14 +1,15 @@
 const express= require('express');
 const app = express();
 const cors=require ('cors')
-
+const authUser=require("./routes/authUserRoute.js")
 app.use(cors({origin:"http://localhost:5173"}))
 app.use(express.json());
+console.log("hioi")
 
-const profiles=[{username:"kruthika",password:"123456"}]
+console.log("hello")
+app.use("/auth",authUser);
 
-
-app.post('/register',(req,res)=>{
+/*app.post('/register',(req,res)=>{
    
     const {username,password}=req.body;
     
@@ -22,7 +23,7 @@ app.post('/register',(req,res)=>{
         success:true,
         message:"Registered Successfully. You can login now"
     })
-})
+})*/
 app.post('/login',(req,res)=>{
       const {username,password}=req.body;
       for(i=0;i<profiles.length;i++){
@@ -45,6 +46,13 @@ app.post('/login',(req,res)=>{
             message:"Username not found"
         })
 })
+
+/*app.use((err,req,res,next)=>{
+    return res.status(404).json({
+        success:false,
+        message:error.message
+    })
+})*/
 
 app.listen(3000,()=>{
     console.log("app listening on port 3000");
