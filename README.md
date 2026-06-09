@@ -9,3 +9,6 @@
 
  ### 8 june 2026
   implemented bcrypt hashing and protected routes
+
+### 9 june 2026
+ implemented jwt Authentication by localstorage.

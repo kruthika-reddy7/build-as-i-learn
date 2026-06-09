@@ -9,11 +9,12 @@ import Dashboard from './pages/dashboard'
 import Login from './pages/login'
 import Register from './pages/register'
 import Navbar from './components/navbar'
+import Profile from './pages/profile'
 import './App.css'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-  
+   //const [item,setItem]=useState("");
    const [isLoggedIn,setIsLoggedIn]=useState(false);
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
               <Dashboard />
              </ProtectedRoute>
           } />
+        <Route path="/profile" element = {<Profile />}></Route>
       </Routes>
     </>
   )

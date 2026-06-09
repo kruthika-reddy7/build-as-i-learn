@@ -16,6 +16,8 @@ function Navbar() {
             {" | "}
 
             <Link to="/dashboard">Dashboard</Link>
+            {"|"}
+            <Link to="/profile" >Profile</Link>
         </nav>
     );
 }

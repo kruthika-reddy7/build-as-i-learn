@@ -35,6 +35,7 @@ function Login({setIsLoggedIn}){
             console.log(data);
             console.log("logged in");
             if(data.success) {
+                localStorage.setItem("token",data.tokenID);
                 setIsLoggedIn(true);
                 navigate('/dashboard')
             }
