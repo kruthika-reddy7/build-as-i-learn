@@ -17,6 +17,14 @@ router.post('/register',validateUser,async(req,res)=>{
     const {username,password}=req.body
     const hashed= await bcrypt.hash(password,10);
     let newObj={username,hashed};
+    for(let i=0;i<profiles.length;i++){
+        if(profiles[i].username===username){
+            return res.json({
+                success:false,
+                message:"give a different username bro"
+            })
+        }
+    }
     profiles.push(newObj);
     
     console.log(profiles)

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
     const authheader= req.headers.authorization;
     console.log("auth middleware reached")
     if(!authheader){
-        return res.status(401).json({
+        return res.status(501).json({
             success:false,
             message:"ivalid request"
         })

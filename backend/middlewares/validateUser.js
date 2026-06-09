@@ -7,6 +7,7 @@ const validateUser = (req,res,next)=>{
        if(password.length<6){
          return res.send("password length should be atleast 6.")
        }
+       console.log("validation done")
        next();
     
     

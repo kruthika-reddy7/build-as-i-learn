@@ -40,6 +40,7 @@ function Register(){
             setMessage("Registered successfully")
             navigate('/login')
         }
+        else setMessage(data.message)
         }
         catch(error){
             setError(error.message)
