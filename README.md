@@ -12,3 +12,9 @@
 
 ### 9 june 2026
  implemented jwt Authentication by localstorage and handled duplicate users while registering.
+
+ ### 10 june 2026
+ connected pgsql through POOL. 
+
+ ### 12 june 2026
+ made  database queries for login and register . Big relied from in-memory array where data gets lost after server refresh . 

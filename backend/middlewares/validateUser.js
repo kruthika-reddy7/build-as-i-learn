@@ -1,6 +1,11 @@
 const validateUser = (req,res,next)=>{
     const {username,password}=req.body;
-    
+      if(!username){
+        return res.send("username not given")
+      }
+      if(!password){
+        return res.send("password not given")
+      }
        if(username.length <4) {
           return res.send("Username length should greater than 4.")
          }

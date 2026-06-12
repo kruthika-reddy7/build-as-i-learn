@@ -1,6 +1,7 @@
 const express= require('express');
 const app = express();
 const cors=require ('cors')
+const pool=require("./db.js")
 const authUser=require("./routes/authUserRoute.js")
 app.use(cors({origin:"http://localhost:5173"}))
 app.use(express.json());
@@ -47,13 +48,18 @@ app.post('/login',(req,res)=>{
         })
 })
 
-/*app.use((err,req,res,next)=>{
+app.use((err,req,res,next)=>{
     return res.status(404).json({
         success:false,
         message:error.message
     })
-})*/
+})
 
+async function test(){
+    const result= await pool.query("select now()");
+    console.log(result.rows)
+}
+test()
 app.listen(3000,()=>{
     console.log("app listening on port 3000");
 })

@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require('jsonwebtoken')
  const authMiddleware=(req,res,next)=>{
+    
     const authheader= req.headers.authorization;
     console.log("auth middleware reached")
     if(!authheader){
@@ -10,14 +11,18 @@ const jwt = require('jsonwebtoken')
         })
       }
     const token= authheader.split(" ")[1];
+    try{
     const decoded= jwt.verify(token,"secretkey");
-    if(!decoded) {
+   if(!decoded) {
         return res.status(401).json({
             success:false,
             message:"invalid jwt token"
         })
-    }
-    next()
+   }
+    next();
+    } catch(err){
+        return res.json(501).send("invalid token");
+     }
  }
 
 module.exports=authMiddleware
