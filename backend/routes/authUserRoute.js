@@ -6,13 +6,24 @@ const jwt = require("jsonwebtoken");
 const authMiddleware= require("../middlewares/authMiddleware.js")
 const validateUser=require("../middlewares/validateUser.js")
 const pool = require('../db.js');
+const rateLimit= require('express-rate-limit')
+require('dotenv').config();
 
+const authLimiter = rateLimit({
+    windowMs:15*60*1000, //15minutes in milliseconds it is 
+    limit:20,
+    message:{
+        message:"too many requests. try again later"
+    }
+})
+console.log(process.env.JWT_SECRET)
 const profiles=[{username:"kruthika",hashed:"123456"}]
 router.use((req,res,next)=>{
     console.log("hii");
+    
     next();
 })
-router.post('/register',validateUser,async(req,res)=>{
+router.post('/register',authLimiter,validateUser,async(req,res)=>{
     console.log("hii");
     const {username,password}=req.body
     const hashed= await bcrypt.hash(password,10);
@@ -26,16 +37,18 @@ router.post('/register',validateUser,async(req,res)=>{
             message:"Successfully Registered"
         })
     }
-    catch(error){
-        console.log(error);
+    catch(err){
+        /*console.log(error);
         res.status(400).json({
             success:false,
             message:error.message
-        })
+        })*/
+       throw new Error("invalid credentials")
+       next(err);
     }
 })
 
-router.post('/login',async(req,res)=>{
+router.post('/login',authLimiter,async(req,res)=>{
     const {username,password}=req.body;
     const hashed=await bcrypt.hash(password,10);
     try{
@@ -52,7 +65,7 @@ router.post('/login',async(req,res)=>{
         if(ismatch){
             const token = jwt.sign({
                 username:username
-            },"secretkey",{
+            },process.env.JWT_SECRET,{
                 expiresIn:'2h'
             })
             res.status(200).json({
@@ -90,5 +103,12 @@ router.get('/profile',authMiddleware,(req,res)=>{
             message:error.message
         })
     }*/
+/*router.use((err,req,res,next)=>{
+    console.log(err.message)
+    return res.status(500).json({
+        success:false,
+        message:"internal server error"
+    })
+})*/
 
 module.exports=router

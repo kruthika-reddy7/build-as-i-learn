@@ -49,9 +49,9 @@ app.post('/login',(req,res)=>{
 })
 
 app.use((err,req,res,next)=>{
-    return res.status(404).json({
+    return res.status(500).json({
         success:false,
-        message:error.message
+        message:err.message
     })
 })
 
